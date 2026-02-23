@@ -25,10 +25,24 @@
         <button type="button" onclick="doTax()">Show tax table</button>
     </form>
 
+    <br> 
+
+    <h3>Choose Operation</h3>
+    <form>
+        <input type="radio" name="operation" value="exponent" onclick="chooseOp()">
+        <label>power</label><br>
+
+        <input type="radio" name="operation" value="add" onclick="chooseOp()">
+        <label>sum</label><br>
+
+        <input type="radio" name="operation" value="mod" onclick="chooseOp()">
+        <label>mod</label><br>
+    </form>
+
     <br>
 
     <div id="results"></div>
-
+    <div id="opResults"></div>
     <script>
         function doTax(){
             let income = Number(document.getElementById("income").value);
@@ -56,6 +70,37 @@
 
             document.getElementById("results").innerHTML = 
                 "Taxes are: " + taxTable;
+        }
+
+        function chooseOp(){
+            let income = Number(document.getElementById("income").value);
+            let baseRate = Number(document.getElementById("baseRate").value);
+            let radios = document.getElementsByName("operation");
+            let result = 0;
+            let outputText = "";
+
+            for (let i = 0; i < radios.length; i++) {
+
+                if (radios[i].checked){
+
+                    if (radios[i].value === "exponent"){
+                        result = income ** baseRate;
+                        outputText = income + " ^ " + baseRate + " is " + result;
+                    }
+
+                    else if (radios[i].value === "add") {
+                        result = income + baseRate;
+                        outputText = income + " + " + baseRate + " is " + result;
+                    }
+
+                    else if (radios[i].value === "mod") {
+                        result = income % baseRate;
+                        outputText = income + " % " + baseRate + " is " + result;
+                    }
+                }
+            }
+
+            document.getElementById("opResults").innerHTML = outputText;
         }
     </script>
  </body>
